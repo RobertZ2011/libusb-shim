@@ -14,17 +14,10 @@ FILE *log_handle;
 
 void libusb_shim_init_log(void) {
     char *log_path = getenv(LIBUSB_SHIM_LOG_PATH);
-    char cwd[1024];
-
-    if(!getcwd(cwd, 1024)) {
-        exit(EX_SOFTWARE);
-    }
 
     /* Open the log file */
     if(!log_path) {
-        /* one +1 for the /, another for null */
-        log_path = malloc(strlen(cwd) + 1 + strlen(DEFAULT_LOG_FILE) + 1);
-        sprintf(log_path, "%s/%s", cwd, DEFAULT_LOG_FILE);
+        log_path = DEFAULT_LOG_PATH;
     }
 
     if(strcmp(log_path, "stderr") == 0) {
@@ -41,10 +34,6 @@ void libusb_shim_init_log(void) {
     log_handle = fopen(log_path, "w");
     if(!log_handle) {
         exit(EX_CANTCREAT);
-    }
-
-    if(!getenv(LIBUSB_SHIM_LOG_PATH)) {
-        free(log_path);
     }
 
     libusb_shim_log_msg("Log start");
