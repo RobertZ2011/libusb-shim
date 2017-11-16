@@ -1,7 +1,7 @@
 #ifndef LIBUSB_SHIM_LOG
 #define LIBUSB_SHIM_LOG
 
-#define DEFAULT_LOG_FILE "libusb-shim-log"
+#define DEFAULT_LOG_PATH "libusb-shim-log"
 #define LIBUSB_SHIM_LOG_PATH "LIBUSB_SHIM_LOG_PATH"
 
 void libusb_shim_init_log(void);
